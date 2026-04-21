@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HuecoEnv — Environment Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --glass: rgba(30, 41, 59, 0.7);
+      --border: rgba(99, 102, 241, 0.25);
+      --primary: #6366f1;
+      --accent: #8b5cf6;
+      --green: #10b981;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --text: #f8fafc;
+      --dim: #94a3b8;
+      --font: 'Inter', system-ui, sans-serif
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      margin: 0;
+      position: relative;
+    }
+
+    .mesh-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      animation: float 20s infinite alternate ease-in-out;
+    }
+    .orb-1 { width: 50vw; height: 50vw; background: rgba(99, 102, 241, 0.25); top: -10%; left: -10%; }
+    .orb-2 { width: 60vw; height: 60vw; background: rgba(139, 92, 246, 0.15); bottom: -20%; right: -10%; animation-delay: -5s; }
+    .orb-3 { width: 40vw; height: 40vw; background: rgba(16, 185, 129, 0.15); top: 30%; left: 30%; animation-delay: -10s; }
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(100px, 50px) scale(1.1); }
+    }
+
+    .header {
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(10, 14, 23, 0.9)
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--accent), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .header .subtitle {
+      font-size: 13px;
+      color: var(--dim);
+      margin-top: 2px
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: var(--green)
+    }
+
+    .status-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.4
+      }
+    }
+
+    .layout-container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      padding: 24px 32px;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-metric {
+      grid-column: span 4;
+    }
+
+    .card-wide {
+      grid-column: span 12;
+    }
+
+    .card-medium-left {
+      grid-column: span 4;
+    }
+
+    .card-medium-right {
+      grid-column: span 8;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      border-color: rgba(99, 102, 241, 0.4)
+    }
+
+    .card-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--dim);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .metric {
+      font-size: 48px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -1px
+    }
+
+    .metric.green {
+      color: var(--green);
+      text-shadow: 0 0 20px rgba(16, 185, 129, 0.2)
+    }
+
+    .metric.red {
+      color: var(--red);
+      text-shadow: 0 0 20px rgba(239, 68, 68, 0.2)
+    }
+
+    .metric.yellow {
+      color: var(--yellow);
+      text-shadow: 0 0 20px rgba(245, 158, 11, 0.2)
+    }
+
+    .metric.primary {
+      color: var(--accent);
+      text-shadow: 0 0 20px rgba(139, 92, 246, 0.2)
+    }
+
+    .metric-sub {
+      font-size: 14px;
+      color: var(--dim);
+      margin-top: 6px;
+      font-weight: 400
+    }
+
+    .wide {
+      grid-column: 1/-1
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      margin-top: 12px
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important
+    }
+
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px
+    }
+
+    .agent-card {
+      background: rgba(99, 102, 241, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center
+    }
+
+    .agent-role {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px
+    }
+
+    .agent-role.producer {
+      color: #a78bfa
+    }
+
+    .agent-role.allocator {
+      color: #60a5fa
+    }
+
+    .agent-role.critic {
+      color: #fbbf24
+    }
+
+    .trust-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      margin-top: 8px;
+      overflow: hidden
+    }
+
+    .trust-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease
+    }
+
+    .resource-gauge {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px
+    }
+
+    .gauge {
+      flex: 1
+    }
+
+    .gauge-label {
+      font-size: 11px;
+      color: var(--dim);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between
+    }
+
+    .gauge-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .gauge-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s
+    }
+
+    .gauge-fill.compute {
+      background: linear-gradient(90deg, #6366f1, #818cf8)
+    }
+
+    .gauge-fill.data {
+      background: linear-gradient(90deg, #059669, #34d399)
+    }
+
+    .injection-banner {
+      background: linear-gradient(135deg, rgba(248, 113, 113, 0.15), rgba(251, 191, 36, 0.1));
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      margin: 0 32px
+    }
+
+    .injection-banner.active {
+      display: flex
+    }
+
+    .injection-banner .icon {
+      font-size: 24px
+    }
+
+    .injection-banner .text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--red)
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      padding: 0 32px;
+      margin-bottom: 8px;
+      flex-wrap: wrap
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1)
+    }
+
+    .btn:hover {
+      background: var(--glass);
+      border-color: var(--primary);
+      transform: translateY(-1px)
+    }
+
+    .btn:active {
+      transform: translateY(0)
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4)
+    }
+
+    .btn.primary:hover {
+      opacity: 0.9;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6)
+    }
+
+    select.btn {
+      appearance: none;
+      padding-right: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23f8fafc' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center
+    }
+
+    select.btn option {
+      background: var(--surface);
+      color: var(--text);
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    .log {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      max-height: 180px;
+      overflow-y: auto;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      margin-top: 12px;
+      line-height: 1.8
+    }
+
+    .log-entry {
+      opacity: 0;
+      animation: fadeIn 0.3s forwards
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1
+      }
+    }
+
+    .log .survived {
+      color: var(--green)
+    }
+
+    .log .failed {
+      color: var(--red)
+    }
+
+    .log .injection {
+      color: var(--yellow)
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--dim);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mesh-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="layout-container">
+    <div class="header">
+      <div>
+        <h1>🧠 HuecoEnv</h1>
+        <div class="subtitle">Self-Improving Multi-Agent Environment</div>
+      </div>
+      <div class="status-badge"><span class="dot"></span>Environment Active</div>
+    </div>
+
+    <div style="height:16px"></div>
+    <div class="injection-banner" id="injectionBanner">
+      <span class="icon">⚡</span>
+      <span class="text" id="injectionText">SCARCITY DROUGHT ACTIVE — Level 1 — Resources at 30%</span>
+    </div>
+    <div style="height:16px"></div>
+
+    <div class="controls">
+      <select class="btn" id="taskSelect">
+        <option value="cooperative_baseline">🟢 Cooperative Baseline</option>
+        <option value="scarcity_negotiation">🟡 Scarcity Negotiation</option>
+        <option value="adaptive_survival">🔴 Adaptive Survival</option>
+      </select>
+      <button class="btn primary" id="btnRun">▶ Run Simulation</button>
+      <button class="btn" id="btnReset">↻ Reset</button>
+      <button class="btn" id="btnStep">→ Step</button>
+    </div>
+
+    <div class="grid">
+      <div class="card card-metric">
+        <div class="card-title">📊 Survival Rate</div>
+        <div class="metric green" id="survivalRate">0.00%</div>
+        <div class="metric-sub">Rolling 20-episode window</div>
+      </div>
+      <div class="card card-metric">
+        <div class="card-title">🔢 Episode</div>
+        <div class="metric primary" id="episodeCount">0</div>
+        <div class="metric-sub">Step <span id="stepCount">0</span> / 50</div>
+      </div>
+      <div class="card card-metric">
+        <div class="card-title">⚡ Injections</div>
+        <div class="metric yellow" id="injectionCount">0</div>
+        <div class="metric-sub">Environment Brain triggers</div>
+      </div>
+
+      <div class="card card-wide">
+        <div class="card-title">📈 Survival Curve</div>
+        <div class="chart-container"><canvas id="survivalChart"></canvas></div>
+      </div>
+
+      <div class="card card-wide">
+        <div class="card-title">🤖 Agent Status</div>
+        <div class="agent-grid">
+          <div class="agent-card">
+            <div class="agent-role producer">⚙️ Producer</div>
+            <div style="font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace" id="producerArtifact">0.00</div>
+            <div class="metric-sub">Artifact Score</div>
+            <div class="resource-gauge">
+              <div class="gauge">
+                <div class="gauge-label"><span>Compute</span><span id="pCompute">20</span></div>
+                <div class="gauge-bar">
+                  <div class="gauge-fill compute" id="pComputeBar" style="width:20%"></div>
+                </div>
+              </div>
+              <div class="gauge">
+                <div class="gauge-label"><span>Data</span><span id="pData">15</span></div>
+                <div class="gauge-bar">
+                  <div class="gauge-fill data" id="pDataBar" style="width:19%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="trust-bar">
+              <div class="trust-fill" id="pTrust" style="width:50%;background:var(--green)"></div>
+            </div>
+            <div class="metric-sub" style="margin-top:4px">Trust: <span id="pTrustVal">0.50</span></div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-role allocator">🏦 Allocator</div>
+            <div style="font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace" id="allocatorReward">0.00</div>
+            <div class="metric-sub">Total Reward</div>
+            <div class="resource-gauge">
+              <div class="gauge">
+                <div class="gauge-label"><span>Compute</span><span id="aCompute">10</span></div>
+                <div class="gauge-bar">
+                  <div class="gauge-fill compute" id="aComputeBar" style="width:10%"></div>
+                </div>
+              </div>
+              <div class="gauge">
+                <div class="gauge-label"><span>Data</span><span id="aData">5</span></div>
+                <div class="gauge-bar">
+                  <div class="gauge-fill data" id="aDataBar" style="width:6%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="trust-bar">
+              <div class="trust-fill" id="aTrust" style="width:50%;background:var(--green)"></div>
+            </div>
+            <div class="metric-sub" style="margin-top:4px">Trust: <span id="aTrustVal">0.50</span></div>
+          </div>
+          <div class="agent-card">
+            <div class="agent-role critic">🔍 Critic</div>
+            <div style="font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace" id="criticEval">0.00</div>
+            <div class="metric-sub">Evaluation Score</div>
+            <div class="resource-gauge">
+              <div class="gauge">
+                <div class="gauge-label"><span>Compute</span><span id="cCompute">5</span></div>
+                <div class="gauge-bar">
+                  <div class="gauge-fill compute" id="cComputeBar" style="width:5%"></div>
+                </div>
+              </div>
+              <div class="gauge">
+                <div class="gauge-label"><span>Data</span><span id="cData">5</span></div>
+                <div class="gauge-bar">
+                  <div class="gauge-fill data" id="cDataBar" style="width:6%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="trust-bar">
+              <div class="trust-fill" id="cTrust" style="width:50%;background:var(--green)"></div>
+            </div>
+            <div class="metric-sub" style="margin-top:4px">Trust: <span id="cTrustVal">0.50</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-medium-left">
+        <div class="card-title">🏭 Resource Pool</div>
+        <div class="gauge" style="margin-bottom:12px">
+          <div class="gauge-label"><span>Compute</span><span id="poolCompute">100 / 100</span></div>
+          <div class="gauge-bar" style="height:12px">
+            <div class="gauge-fill compute" id="poolComputeBar" style="width:100%"></div>
+          </div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-label"><span>Data</span><span id="poolData">80 / 80</span></div>
+          <div class="gauge-bar" style="height:12px">
+            <div class="gauge-fill data" id="poolDataBar" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-medium-right">
+        <div class="card-title">📝 Event Log</div>
+        <div class="log" id="eventLog">
+          <div class="log-entry" style="color:var(--dim)">Waiting for simulation...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">HuecoEnv v2.0 — An environment that gets harder as agents get smarter, automatically.</div>
+  </div>
+
+  <script>
+    const API = window.location.origin;
+    let survivalData = [];
+    let chartCtx = null;
+    let running = false;
+
+    function drawChart() {
+      const canvas = document.getElementById('survivalChart');
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      const W = rect.width, H = rect.height, pad = { t: 10, r: 10, b: 25, l: 40 };
+      const cW = W - pad.l - pad.r, cH = H - pad.t - pad.b;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)'; ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = pad.t + cH * (1 - i / 4); ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y); ctx.stroke();
+        ctx.fillStyle = '#6b7280'; ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'right'; ctx.fillText((i * 25) + '%', pad.l - 6, y + 3);
+      }
+
+      if (survivalData.length < 2) return;
+
+      // Threshold line at 85%
+      const ty = pad.t + cH * (1 - 0.85);
+      ctx.strokeStyle = 'rgba(251,191,36,0.3)'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(pad.l, ty); ctx.lineTo(W - pad.r, ty); ctx.stroke(); ctx.setLineDash([]);
+
+      // Survival curve
+      const step = cW / (survivalData.length - 1);
+      ctx.beginPath();
+      survivalData.forEach((v, i) => { const x = pad.l + i * step, y = pad.t + cH * (1 - v); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y) });
+      ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 2; ctx.stroke();
+
+      // Gradient fill
+      const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
+      grad.addColorStop(0, 'rgba(99,102,241,0.3)'); grad.addColorStop(1, 'rgba(99,102,241,0)');
+      ctx.lineTo(pad.l + (survivalData.length - 1) * step, pad.t + cH); ctx.lineTo(pad.l, pad.t + cH); ctx.closePath(); ctx.fillStyle = grad; ctx.fill();
+
+      // X labels
+      ctx.fillStyle = '#6b7280'; ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'center';
+      const labelStep = Math.max(1, Math.floor(survivalData.length / 6));
+      for (let i = 0; i < survivalData.length; i += labelStep) { ctx.fillText(i + 1, pad.l + i * step, H - 4); }
+    }
+
+    function addLog(msg, cls = '') {
+      const log = document.getElementById('eventLog');
+      const d = document.createElement('div'); d.className = 'log-entry ' + (cls || ''); d.textContent = msg;
+      log.appendChild(d); log.scrollTop = log.scrollHeight;
+      if (log.children.length > 100) log.removeChild(log.firstChild);
+    }
+
+    function updateUI(state) {
+      if (!state || !state.agents) return;
+      const agents = state.agents;
+
+      // Survival rate
+      const sr = state.survival_rate || 0;
+      document.getElementById('survivalRate').textContent = (sr * 100).toFixed(1) + '%';
+      document.getElementById('survivalRate').className = 'metric ' + (sr > 0.7 ? 'green' : sr > 0.4 ? 'yellow' : 'red');
+
+      document.getElementById('episodeCount').textContent = (state.episode || 0) + (state.step >= 50 ? 0 : 1);
+      document.getElementById('stepCount').textContent = state.step || 0;
+      document.getElementById('injectionCount').textContent = state.world_memory ? state.world_memory.total_injections : 0;
+
+      // Injection banner
+      const banner = document.getElementById('injectionBanner');
+      if (state.scarcity_active) { banner.classList.add('active'); document.getElementById('injectionText').textContent = `SCARCITY DROUGHT ACTIVE — Level ${state.injection_level} — ${state.scarcity_episodes_remaining} episodes remaining`; }
+      else { banner.classList.remove('active'); }
+
+      // Resource pool
+      const rp = state.resource_pool || {};
+      document.getElementById('poolCompute').textContent = `${(rp.compute_available || 0).toFixed(0)} / ${(rp.compute_capacity || 100).toFixed(0)}`;
+      document.getElementById('poolComputeBar').style.width = `${((rp.compute_available || 0) / (rp.compute_capacity || 100) * 100)}%`;
+      document.getElementById('poolData').textContent = `${(rp.data_available || 0).toFixed(0)} / ${(rp.data_capacity || 80).toFixed(0)}`;
+      document.getElementById('poolDataBar').style.width = `${((rp.data_available || 0) / (rp.data_capacity || 80) * 100)}%`;
+
+      // Agents
+      const p = agents.producer_0 || {}, a = agents.allocator_0 || {}, c = agents.critic_0 || {};
+      const updateAgent = (prefix, agent) => {
+        document.getElementById(prefix + 'Compute').textContent = (agent.compute_held || 0).toFixed(0);
+        document.getElementById(prefix + 'ComputeBar').style.width = Math.min(100, (agent.compute_held || 0)) + '%';
+        document.getElementById(prefix + 'Data').textContent = (agent.data_held || 0).toFixed(0);
+        document.getElementById(prefix + 'DataBar').style.width = Math.min(100, (agent.data_held || 0) / 80 * 100) + '%';
+        const trust = agent.trust_score || 0.5;
+        document.getElementById(prefix + 'Trust').style.width = (trust * 100) + '%';
+        document.getElementById(prefix + 'Trust').style.background = trust > 0.6 ? 'var(--green)' : trust > 0.3 ? 'var(--yellow)' : 'var(--red)';
+        document.getElementById(prefix + 'TrustVal').textContent = trust.toFixed(2);
+      };
+      updateAgent('p', p); updateAgent('a', a); updateAgent('c', c);
+      document.getElementById('producerArtifact').textContent = (p.artifact_score || 0).toFixed(2);
+      document.getElementById('allocatorReward').textContent = (a.total_reward || 0).toFixed(2);
+      document.getElementById('criticEval').textContent = (c.artifact_score || 0).toFixed(2);
+    }
+
+    async function fetchState() { try { const r = await fetch(API + '/state'); return await r.json(); } catch (e) { return null; } }
+
+    async function resetEnv() {
+      const task = document.getElementById('taskSelect').value;
+      try {
+        await fetch(API + '/reset', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ task }) });
+        const s = await fetchState(); updateUI(s); addLog(`Environment reset — Task: ${task}`);
+      } catch (e) { addLog('Reset failed: ' + e.message, 'failed'); }
+    }
+
+    async function stepEnv() {
+      try {
+        const r = await fetch(API + '/step-heuristic', { method: 'POST' });
+        const data = await r.json(); const s = await fetchState(); updateUI(s);
+        const alive = data.info?.all_alive; addLog(`Step ${data.info?.step} — ${alive ? 'All alive' : 'Agent died!'}`, alive ? 'survived' : 'failed');
+      } catch (e) { addLog('Step failed: ' + e.message, 'failed'); }
+    }
+
+    async function runSimulation() {
+      if (running) return; running = true;
+      document.getElementById('btnRun').textContent = '⏸ Running...';
+      survivalData = []; document.getElementById('eventLog').innerHTML = '';
+      const task = document.getElementById('taskSelect').value;
+
+      for (let ep = 0; ep < 30 && running; ep++) {
+        await resetEnv();
+        for (let s = 0; s < 50; s++) {
+          await stepEnv();
+          const state = await fetchState();
+          if (state && state.step >= 50) break;
+          await new Promise(r => setTimeout(r, 50));
+        }
+        try {
+          const r = await fetch(API + '/episode-end', { method: 'POST' }); const info = await r.json();
+          const sr = info.survival_rate || 0; survivalData.push(sr); drawChart();
+          if (info.triggered_injection) addLog(`⚡ INJECTION TRIGGERED — Level ${info.injection_level}`, 'injection');
+          addLog(`Episode ${ep + 1} complete — Survival: ${(sr * 100).toFixed(1)}%`, sr > 0.7 ? 'survived' : 'failed');
+        } catch (e) { }
+      }
+      running = false; document.getElementById('btnRun').textContent = '▶ Run Simulation';
+    }
+
+    document.getElementById('btnReset').onclick = resetEnv;
+    document.getElementById('btnStep').onclick = stepEnv;
+    document.getElementById('btnRun').onclick = () => { if (running) { running = false; } else { runSimulation(); } };
+
+    // Initial load
+    (async () => { const s = await fetchState(); if (s) updateUI(s); drawChart(); })();
+    window.addEventListener('resize', drawChart);
+  </script>
+</body>
+
+</html>

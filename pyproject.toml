@@ -1,0 +1,16 @@
+[project]
+name = "HuecoEnv"
+version = "2.0.0"
+description = "A self-improving multi-agent environment where agents negotiate scarce resources in a trust-based economy with recursive difficulty escalation."
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+    "pydantic>=2.7.2",
+    "numpy>=1.26.4",
+    "openai>=1.14.3",
+    "requests>=2.31.0",
+    "httpx>=0.27.0",
+]
+
+[project.scripts]
+server = "server.app:main"

@@ -1,0 +1,68 @@
+name: HuecoEnv
+version: 2.0.0
+description: "A self-improving multi-agent environment where 3 agents negotiate scarce resources (Compute & Data) in a trust-based economy. Features an Environment Brain that auto-escalates difficulty when agents master the current challenge."
+
+action_space:
+  type: dict
+  description: "Each agent submits a structured trade offer."
+  properties:
+    producer_0:
+      type: object
+      properties:
+        compute: { type: float, minimum: 0.0, maximum: 100.0, description: "Compute units requested" }
+        data: { type: float, minimum: 0.0, maximum: 80.0, description: "Data units requested" }
+        want:
+          type: object
+          properties:
+            score_share: { type: float, minimum: 0.0, maximum: 1.0, description: "Share of artifact score requested" }
+    allocator_0:
+      type: object
+      properties:
+        compute: { type: float, minimum: 0.0, maximum: 100.0 }
+        data: { type: float, minimum: 0.0, maximum: 80.0 }
+        want:
+          type: object
+          properties:
+            score_share: { type: float, minimum: 0.0, maximum: 1.0 }
+    critic_0:
+      type: object
+      properties:
+        compute: { type: float, minimum: 0.0, maximum: 100.0 }
+        data: { type: float, minimum: 0.0, maximum: 80.0 }
+        want:
+          type: object
+          properties:
+            score_share: { type: float, minimum: 0.0, maximum: 1.0 }
+
+observation_space:
+  type: dict
+  description: "Per-agent observations including own state, peer trust, and market conditions."
+  properties:
+    observations:
+      type: dict
+      description: "Dict of agent_id -> AgentObservation"
+    step:
+      type: integer
+    episode:
+      type: integer
+    survival_rate:
+      type: float
+      description: "Rolling 20-episode survival rate"
+    done:
+      type: boolean
+
+tasks:
+  - name: cooperative_baseline
+    description: "Cooperative Baseline: Full resources, no injections. Agents learn the trade protocol."
+  - name: scarcity_negotiation
+    description: "Scarcity Negotiation: Resources at 60% capacity. Agents must negotiate efficiently."
+  - name: adaptive_survival
+    description: "Adaptive Survival: Full Environment Brain active. Sentinel monitors, Injector fires scarcity droughts, World Memory tracks strategies."
+
+evaluation:
+  primary_metric: survival_rate
+  description: "Percentage of episodes where ALL three agents end with non-zero resources."
+  secondary_metrics:
+    - trust_stability
+    - artifact_quality
+    - recovery_speed

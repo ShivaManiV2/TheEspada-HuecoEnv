@@ -1,0 +1,904 @@
+{
+  "entries": [
+    {
+      "injection_episode": 20,
+      "injection_level": 1,
+      "capacity_fraction": 0.3,
+      "duration_episodes": 10,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 5.577063451660854,
+        "avg_data_allocation": 2.0201701666380414,
+        "avg_score_share_requested": 0.1612333333333333,
+        "cooperation_ratio": 0.61
+      },
+      "recovery_time": 10,
+      "resolved": true
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 2,
+      "capacity_fraction": 0.2,
+      "duration_episodes": 15,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.411657473089404,
+        "avg_data_allocation": 1.4821977569942717,
+        "avg_score_share_requested": 0.1612888888888889,
+        "cooperation_ratio": 0.6426666666666667
+      },
+      "recovery_time": 15,
+      "resolved": true
+    },
+    {
+      "injection_episode": 36,
+      "injection_level": 3,
+      "capacity_fraction": 0.2,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4787496483411244,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.1617333333333333,
+        "cooperation_ratio": 0.504
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 42,
+      "injection_level": 3,
+      "capacity_fraction": 0.2,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4127709121812857,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.16333333333333333,
+        "cooperation_ratio": 0.536
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 48,
+      "injection_level": 3,
+      "capacity_fraction": 0.2,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.888,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.1617333333333333,
+        "cooperation_ratio": 0.636
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 26,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.887,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.1544,
+        "cooperation_ratio": 0.604
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 32,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.9065,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.159,
+        "cooperation_ratio": 0.44
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 38,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.9005,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.16086666666666669,
+        "cooperation_ratio": 0.456
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 44,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.905,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.164,
+        "cooperation_ratio": 0.648
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 50,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.888,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.1617333333333333,
+        "cooperation_ratio": 0.636
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 26,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.887,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.1544,
+        "cooperation_ratio": 0.604
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 32,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.9065,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.159,
+        "cooperation_ratio": 0.44
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 38,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.9005,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.16086666666666669,
+        "cooperation_ratio": 0.456
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 44,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.905,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.164,
+        "cooperation_ratio": 0.648
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 50,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4397184396210068,
+        "avg_data_allocation": 1.2479331511620992,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 26,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 4.183114679511338,
+        "avg_data_allocation": 1.5494655851839139,
+        "avg_score_share_requested": 0.18999999999999997,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 32,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.539546128751163,
+        "avg_data_allocation": 1.3099089491822953,
+        "avg_score_share_requested": 0.1963333333333333,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 38,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.7555249820346,
+        "avg_data_allocation": 1.416099111525935,
+        "avg_score_share_requested": 0.1957446808510638,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 44,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.647307631016765,
+        "avg_data_allocation": 1.3873931959135484,
+        "avg_score_share_requested": 0.19679999999999997,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 50,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 1.0,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 43,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 1.0,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.1484815410316878,
+        "avg_data_allocation": 1.015161144695486,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 26,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 1.0,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 42,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.864912409715948,
+        "avg_data_allocation": 1.4471622638239947,
+        "avg_score_share_requested": 0.19319999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 48,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.9006219363007135,
+        "avg_data_allocation": 1.4587490021792453,
+        "avg_score_share_requested": 0.19613333333333333,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 54,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4564907171757473,
+        "avg_data_allocation": 1.267968790032813,
+        "avg_score_share_requested": 0.19986666666666664,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 60,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.548476434263063,
+        "avg_data_allocation": 1.3035930387319346,
+        "avg_score_share_requested": 0.1986,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 66,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 2.0700277028385408,
+        "avg_data_allocation": 0.5566983736013563,
+        "avg_score_share_requested": 0.19879999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 72,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 1.0,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 94,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.3060130147570974,
+        "avg_data_allocation": 1.1021069281806877,
+        "avg_score_share_requested": 0.19353333333333333,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 100,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.265494187688089,
+        "avg_data_allocation": 1.08120669749112,
+        "avg_score_share_requested": 0.19706666666666667,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 106,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.9765,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19686666666666663,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 129,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 1.0,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 151,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.991,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19253333333333333,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 175,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.489329424654427,
+        "avg_data_allocation": 1.2863856136322154,
+        "avg_score_share_requested": 0.19693333333333332,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 181,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.499672540778943,
+        "avg_data_allocation": 1.3022647209426021,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 187,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.5610268325572014,
+        "avg_data_allocation": 1.3706059806522268,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 193,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4141360405926897,
+        "avg_data_allocation": 1.2479187352805325,
+        "avg_score_share_requested": 0.19726666666666665,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 199,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.9858662501903668,
+        "avg_data_allocation": 1.5341055896115066,
+        "avg_score_share_requested": 0.1914,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 205,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.7698229779808754,
+        "avg_data_allocation": 1.468230306088484,
+        "avg_score_share_requested": 0.1923333333333333,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 211,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.439248918162654,
+        "avg_data_allocation": 1.254387265760971,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 26,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.5539569923677985,
+        "avg_data_allocation": 1.3106982447247473,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 32,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4397184396210068,
+        "avg_data_allocation": 1.2479331511620992,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 26,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 4.183114679511338,
+        "avg_data_allocation": 1.5494655851839139,
+        "avg_score_share_requested": 0.18999999999999997,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 32,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.539546128751163,
+        "avg_data_allocation": 1.3099089491822953,
+        "avg_score_share_requested": 0.1963333333333333,
+        "cooperation_ratio": 0.996
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 38,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.7802815878755927,
+        "avg_data_allocation": 1.3937052730557742,
+        "avg_score_share_requested": 0.19399999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 44,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4404048591013954,
+        "avg_data_allocation": 1.2562456880979043,
+        "avg_score_share_requested": 0.19979999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 50,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.50958397935264,
+        "avg_data_allocation": 1.2846557763304567,
+        "avg_score_share_requested": 0.19999999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 56,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4678557660509277,
+        "avg_data_allocation": 1.2830334565813213,
+        "avg_score_share_requested": 0.1996,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 62,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 4.033310691895749,
+        "avg_data_allocation": 1.475968856095557,
+        "avg_score_share_requested": 0.19106666666666666,
+        "cooperation_ratio": 0.988
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 68,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 1.4409185121569565,
+        "avg_data_allocation": 0.20787447098014647,
+        "avg_score_share_requested": 0.19986666666666664,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 89,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 0.999,
+        "avg_data_allocation": 0.0,
+        "avg_score_share_requested": 0.19986666666666664,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 112,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.4437944855171443,
+        "avg_data_allocation": 1.2653717351538967,
+        "avg_score_share_requested": 0.19979999999999998,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 118,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 4.03522401763653,
+        "avg_data_allocation": 1.4672220186350104,
+        "avg_score_share_requested": 0.1933333333333333,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 124,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.568780663808697,
+        "avg_data_allocation": 1.3258117946467065,
+        "avg_score_share_requested": 0.19739999999999996,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 130,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 3.9646015281211597,
+        "avg_data_allocation": 1.4503314643761236,
+        "avg_score_share_requested": 0.1936,
+        "cooperation_ratio": 1.0
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 136,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": null,
+      "recovery_time": null,
+      "resolved": false
+    },
+    {
+      "injection_episode": 20,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 2.5670935677677447,
+        "avg_data_allocation": 1.6933333333333336,
+        "avg_score_share_requested": 0.184,
+        "cooperation_ratio": 0.952
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 42,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 2.5769983720107033,
+        "avg_data_allocation": 1.6933333333333336,
+        "avg_score_share_requested": 0.184,
+        "cooperation_ratio": 0.924
+      },
+      "recovery_time": 5,
+      "resolved": true
+    },
+    {
+      "injection_episode": 64,
+      "injection_level": 3,
+      "capacity_fraction": 0.05,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 2.5696564367736476,
+        "avg_data_allocation": 1.6933333333333336,
+        "avg_score_share_requested": 0.184,
+        "cooperation_ratio": 0.94
+      },
+      "recovery_time": 5,
+      "resolved": true
+    }
+  ],
+  "current_injection_level": 3,
+  "total_injections": 67
+}
