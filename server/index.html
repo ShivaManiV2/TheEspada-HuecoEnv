@@ -477,7 +477,7 @@
       <select class="btn" id="taskSelect">
         <option value="cooperative_baseline">🟢 Cooperative Baseline</option>
         <option value="scarcity_negotiation">🟡 Scarcity Negotiation</option>
-        <option value="adaptive_survival">🔴 Adaptive Survival</option>
+        <option value="adaptive_survival" selected>🔴 Adaptive Survival</option>
       </select>
       <button class="btn primary" id="btnRun">▶ Run Simulation</button>
       <button class="btn" id="btnReset">↻ Reset</button>
@@ -719,9 +719,14 @@
     async function stepEnv() {
       try {
         const r = await fetch(API + '/step-heuristic', { method: 'POST' });
-        const data = await r.json(); const s = await fetchState(); updateUI(s);
-        const alive = data.info?.all_alive; addLog(`Step ${data.info?.step} — ${alive ? 'All alive' : 'Agent died!'}`, alive ? 'survived' : 'failed');
-      } catch (e) { addLog('Step failed: ' + e.message, 'failed'); }
+        const data = await r.json();
+        const s = await fetchState();
+        updateUI(s);
+        const alive = data.info?.all_alive;
+        addLog(`Step ${data.info?.step} — ${alive ? 'All alive' : 'Agent died!'}`, alive ? 'survived' : 'failed');
+        // Return done flag so outer loop can break early
+        return data.done || false;
+      } catch (e) { addLog('Step failed: ' + e.message, 'failed'); return false; }
     }
 
     async function runSimulation() {
@@ -730,18 +735,19 @@
       survivalData = []; document.getElementById('eventLog').innerHTML = '';
       const task = document.getElementById('taskSelect').value;
 
-      for (let ep = 0; ep < 30 && running; ep++) {
+      for (let ep = 0; ep < 60 && running; ep++) {
         await resetEnv();
         for (let s = 0; s < 50; s++) {
-          await stepEnv();
+          const done = await stepEnv();
           const state = await fetchState();
-          if (state && state.step >= 50) break;
-          await new Promise(r => setTimeout(r, 50));
+          if (done || (state && state.step >= 50)) break;
+          await new Promise(r => setTimeout(r, 40));
         }
         try {
           const r = await fetch(API + '/episode-end', { method: 'POST' }); const info = await r.json();
           const sr = info.survival_rate || 0; survivalData.push(sr); drawChart();
           if (info.triggered_injection) addLog(`⚡ INJECTION TRIGGERED — Level ${info.injection_level}`, 'injection');
+          else if (info.injection_ended) addLog(`✅ Drought ended — resources restored`, 'survived');
           addLog(`Episode ${ep + 1} complete — Survival: ${(sr * 100).toFixed(1)}%`, sr > 0.7 ? 'survived' : 'failed');
         } catch (e) { }
       }

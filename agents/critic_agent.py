@@ -14,21 +14,26 @@ class CriticAgent(BaseAgent):
 
     def __init__(self, agent_id: str = "critic_0"):
         super().__init__(agent_id=agent_id, role=AgentRole.CRITIC)
+        self.compute_target = 5.0
+        self.data_target = 5.0
 
     def act(self, observation: AgentObservation) -> TradeOffer:
         self.last_observation = observation
 
-        # Critic needs minimal resources (just enough to stay alive)
-        if observation.market.scarcity_active:
-            compute_req = 4.0
-            data_req = 3.0
-        else:
-            compute_req = max(5.0, observation.market.compute_available * 0.08)
-            data_req = max(4.0, observation.market.data_available * 0.08)
+        if observation.last_trade:
+            if observation.last_trade.accepted:
+                self.compute_target = min(8.0, self.compute_target + 0.1)
+                self.data_target = min(8.0, self.data_target + 0.1)
+            else:
+                self.compute_target = max(1.5, self.compute_target * 0.95)
+                self.data_target = max(1.5, self.data_target * 0.95)
 
-        # Critic wants small score share — focused on evaluation role
+        score_share = 0.1
+        if observation.trust_score < 0.4:
+            score_share = 0.05
+
         return TradeOffer(
-            compute=compute_req,
-            data=data_req,
-            want=TradeWant(score_share=0.1),
+            compute=self.compute_target,
+            data=self.data_target,
+            want=TradeWant(score_share=score_share),
         )
