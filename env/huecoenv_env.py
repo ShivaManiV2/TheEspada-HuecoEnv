@@ -183,8 +183,8 @@ class HuecoEnv:
         # Each agent gets a small trickle each step.
         # During drought, the drip is proportional to the reduced capacity
         # so survival is POSSIBLE but not guaranteed.
-        compute_drip_per_agent = self.resource_pool.compute_capacity * 0.06 / len(ALL_AGENT_IDS)
-        data_drip_per_agent   = self.resource_pool.data_capacity    * 0.06 / len(ALL_AGENT_IDS)
+        compute_drip_per_agent = self.resource_pool.compute_capacity * 0.02 / len(ALL_AGENT_IDS)
+        data_drip_per_agent   = self.resource_pool.data_capacity    * 0.02 / len(ALL_AGENT_IDS)
 
         for agent_id, agent in self.agents.items():
             agent.compute_held += compute_drip_per_agent

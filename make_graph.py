@@ -1,38 +1,40 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 import os
 
-def main():
-    print("Generating Presentation Graph...")
-    
-    baseline_path = "data/simulation_adaptive_survival.csv"
-    trained_path = "data/training_adaptive_survival.csv"
-    
-    if not os.path.exists(baseline_path):
-        print(f"Error: Could not find {baseline_path}. Run simulate.py first!")
-        return
-        
-    baseline_data = pd.read_csv(baseline_path)
-    
-    plt.figure(figsize=(10, 6))
-    plt.plot(baseline_data['episode'], baseline_data['survival_rate'], label='Untrained Baseline', color='red', linestyle='--')
-    
-    if os.path.exists(trained_path):
-        trained_data = pd.read_csv(trained_path)
-        plt.plot(trained_data['episode'], trained_data['survival_rate'], label='TRL Trained Agent', color='blue', linewidth=2)
-        print("Found training data! Adding to graph.")
-    else:
-        print("Training data not found yet. Plotting baseline only.")
+# Load the real data
+# Use the _1.csv since that is the one you just downloaded from the A100!
+data_path = "data/training_adaptive_survival_1.csv" if os.path.exists("data/training_adaptive_survival_1.csv") else "data/training_adaptive_survival.csv"
+df = pd.read_csv(data_path)
 
-    plt.title('Environment Recovery: Untrained vs Trained Agents')
-    plt.xlabel('Episode')
-    plt.ylabel('Survival Rate')
-    plt.ylim(0.0, 1.05)
-    plt.legend()
-    plt.grid(True)
+# Create the Cyberpunk Plot
+plt.figure(figsize=(10, 6))
+sns.set_theme(style="darkgrid")
 
-    plt.savefig('Slide_4_Graph.png', dpi=300, bbox_inches='tight')
-    print("Success! Graph saved as Slide_4_Graph.png")
+# Plot smoothed line (only smooth if it's not a perfectly flat line)
+if df['survival_rate'].nunique() > 1:
+    df['rolling_survival'] = df['survival_rate'].rolling(window=30, min_periods=1).mean()
+    sns.lineplot(data=df, x='episode', y='survival_rate', color='#00ffcc', alpha=0.3, linewidth=1)
+    sns.lineplot(data=df, x='episode', y='rolling_survival', color='#00ffcc', linewidth=2.5, label="Rolling Average")
+else:
+    sns.lineplot(data=df, x='episode', y='survival_rate', color='#00ffcc', linewidth=2.5, label="Survival Rate")
 
-if __name__ == "__main__":
-    main()
+plt.title("Qwen3-1.7B GRPO Training: Real Agent Survival Rate", fontsize=16, color='white', pad=15)
+plt.xlabel("Training Episode", fontsize=12, color='white')
+plt.ylabel("Survival Rate", fontsize=12, color='white')
+plt.ylim(0.0, 1.05)
+
+# Cyberpunk styling
+ax = plt.gca()
+ax.set_facecolor('#0d0d1a')
+ax.figure.set_facecolor('#0d0d1a')
+ax.tick_params(colors='white', which='both')
+for spine in ax.spines.values():
+    spine.set_edgecolor('#33334d')
+plt.legend(facecolor='#0d0d1a', labelcolor='white', edgecolor='#33334d')
+
+# Save
+os.makedirs("assets", exist_ok=True)
+plt.savefig("assets/survival_plot.png", dpi=300, bbox_inches='tight')
+print(f"✅ SUCCESS: Real graph generated from {data_path}!")
