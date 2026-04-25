@@ -1060,8 +1060,22 @@
       "strategy_fingerprint": null,
       "recovery_time": null,
       "resolved": false
+    },
+    {
+      "injection_episode": 21,
+      "injection_level": 3,
+      "capacity_fraction": 0.1,
+      "duration_episodes": 5,
+      "strategy_fingerprint": {
+        "avg_compute_allocation": 9.267481177589286,
+        "avg_data_allocation": 8.92309917438466,
+        "avg_score_share_requested": 0.2833333333333333,
+        "cooperation_ratio": 0.0
+      },
+      "recovery_time": 5,
+      "resolved": true
     }
   ],
   "current_injection_level": 3,
-  "total_injections": 79
+  "total_injections": 80
 }

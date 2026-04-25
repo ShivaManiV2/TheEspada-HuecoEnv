@@ -44,9 +44,13 @@ def get_client() -> OpenAI:
     """Initialize OpenAI client safely."""
     api_base = os.getenv("API_BASE_URL")
     if not api_base:
-        api_base = "https://api.openai.com/v1"
+        # Default to HuggingFace Inference Providers router (OpenAI-compatible)
+        api_base = "https://router.huggingface.co/v1"
 
     api_key = os.getenv("HF_TOKEN") or os.getenv("API_KEY") or os.getenv("OPENAI_API_KEY") or "dummy-key"
+
+    print(f"[DEBUG] Connecting to: {api_base}", flush=True)
+    print(f"[DEBUG] API key starts with: {api_key[:8]}...", flush=True)
 
     # explicitly provide httpx.Client to prevent older openai versions
     # from crashing on "proxies" kwarg in modern httpx >= 0.28.

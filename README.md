@@ -4,6 +4,9 @@
 
 HuecoEnv is a self-improving multi-agent environment where three AI agents must negotiate and allocate scarce resources (Compute and Data) to survive. When agents master the current difficulty, an **Environment Brain** detects the plateau and injects scarcity shocks — making the world harder recursively.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YOUR_USERNAME/HuecoEnv/blob/main/training_run.ipynb)
+📖 **[Read the Hugging Face Blog Post](hackathon_blog_post.md)**
+
 ---
 
 ## 🎯 Problem Statement
