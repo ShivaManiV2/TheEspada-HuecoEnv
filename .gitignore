@@ -116,7 +116,7 @@ celerybeat.pid
 .venv
 # env/ (Removed because our source code is in an env/ directory)
 venv/
-ENV/
+# ENV/
 env.bak/
 venv.bak/
 
