@@ -1,13 +1,19 @@
 """
-HuecoEnv — Training Script Scaffold
+HuecoEnv — Heuristic Baseline Simulation
 ========================================
-Training scaffold for PPO/GRPO using Hugging Face TRL.
-Wraps HuecoEnv as a gym-compatible environment for RL training.
+Runs heuristic proxy agents through the environment to generate
+baseline survival curves and validate the Environment Brain logic.
 
-Designed to run with on-site hackathon compute credits.
+The actual LLM training (Qwen3-1.7B GRPO) is in training_run.ipynb,
+which was executed on a Hugging Face A100 Large GPU.
+
+This script provides:
+  - HuecoGymWrapper: A gym-compatible wrapper used by both heuristic
+    baselines AND the real GRPO training notebook.
+  - train_loop: Runs heuristic agents to generate baseline CSV data.
 
 Usage:
-    python train.py --episodes 500 --algo ppo
+    python train.py --episodes 500 --task adaptive_survival
 """
 
 from __future__ import annotations
@@ -93,9 +99,10 @@ def train_loop(
     seed: int = 42,
 ):
     """
-    Main training loop.
-    In the full implementation, this would use HF TRL PPO/GRPO.
-    Currently runs heuristic agents and logs training curves.
+    Heuristic baseline loop.
+    Runs heuristic proxy agents to generate baseline survival data
+    and validate that the Environment Brain triggers correctly.
+    For real LLM training, see training_run.ipynb (uses TRL GRPO).
     """
     os.makedirs(output_dir, exist_ok=True)
 
@@ -105,7 +112,7 @@ def train_loop(
     print(f"\n{'='*70}")
     print(f"  HUECOENV TRAINING")
     print(f"  Task: {task_name} | Episodes: {num_episodes}")
-    print(f"  Algorithm: Heuristic Baseline (replace with PPO/GRPO)")
+    print(f"  Algorithm: Heuristic Baseline (see training_run.ipynb for GRPO)")
     print(f"{'='*70}\n")
 
     training_log = []
