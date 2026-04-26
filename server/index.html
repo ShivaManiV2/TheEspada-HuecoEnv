@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HuecoEnv — HUD Terminal</title>
+  <title>HuecoEnv</title>
   <style>
     * {
       margin: 0;
@@ -650,7 +650,7 @@
   <div class="layout-container">
     <div class="header">
       <div>
-        <h1>HuecoEnv_SYS</h1>
+        <h1>HuecoEnv</h1>
         <div class="subtitle">// Self-Improving Autonomous Architecture</div>
       </div>
       <div class="status-badge"><span class="dot"></span>Uplink Active</div>
@@ -678,28 +678,28 @@
 
     <div class="grid">
       <div class="card card-metric">
-        <div class="card-title">Sys_Survival_Rate</div>
+        <div class="card-title">System Survival Rate</div>
         <div class="metric green" id="survivalRate">0.00%</div>
-        <div class="metric-sub">Rolling 20-Ep Matrix</div>
+        <div class="metric-sub">Rolling 20-Episode Average</div>
       </div>
       <div class="card card-metric">
-        <div class="card-title">Ep_Sequence</div>
+        <div class="card-title">Episode Sequence</div>
         <div class="metric primary" id="episodeCount">0</div>
-        <div class="metric-sub">Iteration <span id="stepCount">0</span> / 50</div>
+        <div class="metric-sub">Step <span id="stepCount">0</span> / 50</div>
       </div>
       <div class="card card-metric">
-        <div class="card-title">Anomalies</div>
+        <div class="card-title">Scarcity Droughts</div>
         <div class="metric yellow" id="injectionCount">0</div>
         <div class="metric-sub">Environment Triggers</div>
       </div>
 
       <div class="card card-wide">
-        <div class="card-title">Trajectory_Analysis</div>
+        <div class="card-title">Trajectory Analysis</div>
         <div class="chart-container"><canvas id="survivalChart"></canvas></div>
       </div>
 
       <div class="card card-wide">
-        <div class="card-title">Neural_Agents_Status</div>
+        <div class="card-title">Neural Agents Status</div>
         <div class="agent-grid">
           <div class="agent-card">
             <div class="agent-role producer">Producer_Unit</div>
@@ -785,16 +785,16 @@
       </div>
 
       <div class="card card-medium-left">
-        <div class="card-title">Core_Res_Pool</div>
+        <div class="card-title">Core Resource Pool</div>
         <div class="gauge" style="margin-bottom:20px">
-          <div class="gauge-label"><span>Global_Compute</span><span id="poolCompute" style="color:#fff">100 / 100</span>
+          <div class="gauge-label"><span>Global Compute</span><span id="poolCompute" style="color:#fff">100 / 100</span>
           </div>
           <div class="gauge-bar" style="height:10px">
             <div class="gauge-fill compute" id="poolComputeBar" style="width:100%"></div>
           </div>
         </div>
         <div class="gauge">
-          <div class="gauge-label"><span>Global_Data</span><span id="poolData" style="color:#fff">80 / 80</span></div>
+          <div class="gauge-label"><span>Global Data</span><span id="poolData" style="color:#fff">80 / 80</span></div>
           <div class="gauge-bar" style="height:10px">
             <div class="gauge-fill data" id="poolDataBar" style="width:100%"></div>
           </div>
@@ -802,14 +802,14 @@
       </div>
 
       <div class="card card-medium-right">
-        <div class="card-title">Terminal_Logs</div>
+        <div class="card-title">Terminal Logs</div>
         <div class="log" id="eventLog">
           <div class="log-entry" style="color:var(--dim)">> System initialized. Awaiting parameters...</div>
         </div>
       </div>
     </div>
 
-    <div class="footer">HuecoEnv_SYS v2.0 // Architecture adapts to increasing intellect metrics dynamically.</div>
+    <div class="footer">HuecoEnv // Architecture adapts to increasing intellect metrics dynamically.</div>
   </div>
 
   <script>
@@ -888,7 +888,7 @@
 
       // Injection banner
       const banner = document.getElementById('injectionBanner');
-      if (state.scarcity_active) { banner.classList.add('active'); document.getElementById('injectionText').textContent = `DROUGHT PROTOCOL ENFORCED — Lvl ${state.injection_level} — ${state.scarcity_episodes_remaining} Ticks Remaining`; }
+      if (state.scarcity_active) { banner.classList.add('active'); document.getElementById('injectionText').textContent = `DROUGHT PROTOCOL ENFORCED — Lvl ${state.injection_level} — ${state.scarcity_episodes_remaining} Steps Remaining`; }
       else { banner.classList.remove('active'); }
 
       // Resource pool
@@ -936,7 +936,7 @@
         const s = await fetchState();
         updateUI(s);
         const alive = data.info?.all_alive;
-        addLog(`Tick ${data.info?.step} executed — ${alive ? 'Units nominal' : 'Unit termination detected'}`, alive ? 'survived' : 'failed');
+        addLog(`Step ${data.info?.step} executed — ${alive ? 'Agents alive' : 'Agent termination detected'}`, alive ? 'survived' : 'failed');
         return data.done || false;
       } catch (e) { addLog('Tick execution failed: ' + e.message, 'failed'); return false; }
     }
@@ -960,7 +960,7 @@
           const sr = info.survival_rate || 0; survivalData.push(sr); drawChart();
           if (info.triggered_injection) addLog(`CRITICAL: Anomaly triggered — Hazard Lvl ${info.injection_level}`, 'injection');
           else if (info.injection_ended) addLog(`SYSTEM: Drought cleared — Resources stabilizing`, 'survived');
-          addLog(`Sequence ${ep + 1} finalized — Unit Survival Rate: ${(sr * 100).toFixed(1)}%`, sr > 0.7 ? 'survived' : 'failed');
+          addLog(`Episode ${ep + 1} finalized — Agent Survival Rate: ${(sr * 100).toFixed(1)}%`, sr > 0.7 ? 'survived' : 'failed');
         } catch (e) { }
       }
       running = false; document.getElementById('btnRun').textContent = 'Initialize Simulation';

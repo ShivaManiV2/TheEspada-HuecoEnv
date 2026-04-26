@@ -181,9 +181,9 @@ class HuecoEnv:
             trade_offers[agent_id] = offer
 
         # ── 2. Passive resource drip ──────────────────────────────────────
-        # Dashboard mode gets a relaxed drip (0.06) so bots survive long enough
-        # to trigger the drought. Training mode gets brutal (0.01) so LLM learns.
-        drip_rate = 0.01 if self.task_name == "training_mode" else 0.06
+        # Dashboard mode gets a massive drip (0.25) so dumb bots survive bad trades
+        # and trigger the drought. Training mode gets brutal (0.01) so LLM learns.
+        drip_rate = 0.01 if self.task_name == "training_mode" else 0.25
         compute_drip_per_agent = self.resource_pool.compute_capacity * drip_rate / len(ALL_AGENT_IDS)
         data_drip_per_agent   = self.resource_pool.data_capacity    * drip_rate / len(ALL_AGENT_IDS)
 
@@ -250,8 +250,8 @@ class HuecoEnv:
         # ── 6. Check termination ───────────────────────────────────────────
         done = self.step_count >= MAX_STEPS_PER_EPISODE
         all_alive = all(a.has_resources() for a in self.agents.values())
-        if not all_alive:
-            done = True  # Early end if any agent dies
+        if not all_alive and self.task_name == "training_mode":
+            done = True  # Early end if any agent dies (speeds up training)
 
         obs = self._get_observation()
         info = {

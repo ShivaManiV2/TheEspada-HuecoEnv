@@ -34,6 +34,22 @@ We implemented an auto-escalating difficulty system that tracks agent performanc
 * **The Injector:** When triggered by the Sentinel, the Injector forces a "Scarcity Drought," slashing the total available compute and data pool to as low as 10% of its normal capacity.
 * **World Memory:** A recursive log that tracks strategies. If agents survive a drought using the same strategy twice, the environment learns and makes the next drought even harsher (e.g., entirely disabling a specific resource type).
 
+### The Four Protocols (Task Modes)
+
+To prove this architecture, HuecoEnv ships with distinct simulation protocols:
+1. **Protocol Alpha (Cooperative Baseline):** 100% resources, Brain disabled. Proves the LLM can learn JSON formatting without dying.
+2. **Protocol Beta (Scarcity Negotiation):** 60% resources, Brain disabled. Forces cutthroat economics from episode one.
+3. **Protocol Omega (Adaptive Dashboard):** 100% resources, Brain enabled, relaxed physics. Designed for the interactive UI so observers can visually witness the Scarcity Drought trigger.
+4. **A100 Training Mode:** 100% resources, Brain enabled, brutal physics. Passive resource regeneration is slashed to 1%. This is the crucible where the actual LLM was trained.
+
+### Real-World Applications
+
+HuecoEnv isn't just a game; it is a simulation of real-world multi-agent resource constraints:
+- **Cloud Compute Arbitration:** AI agents dynamically allocating GPU clusters and data bandwidth in multi-tenant environments (like AWS or Azure) during peak demand surges.
+- **Supply Chain Logistics:** Autonomous nodes negotiating scarce physical resources during unexpected global shortages (simulated by the Scarcity Drought).
+- **Automated Throttling Systems:** Testing how API rate limiters interact with high-frequency trading algorithms during market volatility.
+- **Robust RLHF Benchmarking:** Evaluating if a new foundation model will hack its reward function, or if it can adapt to shifting constraints over a long context window.
+
 ### GRPO Training Results
 
 We trained **Qwen3-1.7B** using TRL's Group Relative Policy Optimization (GRPO) on a Hugging Face A100 GPU across 1,000 episodes. The LLM directly controls the Producer agent, generating JSON trade offers that are parsed and fed into the environment. If the model produces invalid JSON, it receives a "poison offer" that guarantees rejection and starvation — there is no heuristic safety net.

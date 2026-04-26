@@ -17,6 +17,8 @@ HuecoEnv is a self-improving multi-agent environment where three AI agents must 
 🤗 **[Play in Hugging Face Space](https://huggingface.co/spaces/ShivaManiV2/TheEspada-HuecoEnv)**
 📖 **[Read the Blog Post](hackathon/blog_post.md)** · 🎯 **[Pitch Deck](hackathon/pitch_deck.md)**
 
+![Dashboard Scarcity Drought](assets/dashboard_drought.png)
+
 ---
 
 ## 📊 Training Results
@@ -65,13 +67,22 @@ All interactions use structured JSON:
 
 If the LLM produces invalid JSON, it receives a **poison offer** (zero resources, guaranteed rejection) — there is no heuristic safety net. The model must learn the protocol or die.
 
-## 📋 Tasks
+## 📋 Protocols (Task Modes)
 
-| Task | Difficulty | Description |
-|------|-----------|-------------|
-| `cooperative_baseline` | Easy | Full resources, no injections. Learn the trade protocol. |
-| `scarcity_negotiation` | Medium | Resources at 60% capacity. Negotiate efficiently. |
-| `adaptive_survival` | Hard | Full Environment Brain. Sentinel + Injector + World Memory. |
+| Mode | Name | Setup | Purpose |
+|------|-----------|-------------|---------|
+| `cooperative_baseline` | **[Protocol Alpha]** Cooperative | 100% Resources, Brain **OFF** | Control group. Proves agents can learn basic JSON trading without environment interference. |
+| `scarcity_negotiation` | **[Protocol Beta]** Scarcity | 60% Resources, Brain **OFF** | Forces agents into a severely constrained economy from Episode 1 to test cutthroat negotiation. |
+| `adaptive_survival` | **[Protocol Omega]** Adaptive | 100% Resources, Brain **ON**, Relaxed Physics | Designed for the interactive dashboard. Easy physics guarantee heuristic bots hit the 85% survival threshold so judges can visually witness the Scarcity Drought trigger. |
+| `training_mode` | **A100 Training Mode** | 100% Resources, Brain **ON**, Brutal Physics | The mode used for actual GRPO training. Passive resource drip is slashed to 1%, forcing the LLM to learn advanced cooperative strategies to survive. When the LLM hits 85%, the Brain drops capacity to 30%, creating the "sawtooth" learning curve. |
+
+## 🌍 Real-World Applications
+
+HuecoEnv isn't just a game; it is a simulation of real-world multi-agent resource constraints:
+- **Cloud Compute Arbitration:** AI agents dynamically allocating GPU clusters and data bandwidth in multi-tenant environments (like AWS or Azure) during peak demand surges.
+- **Supply Chain Logistics:** Autonomous nodes negotiating scarce physical resources during unexpected global shortages (simulated by the Scarcity Drought).
+- **Automated Throttling Systems:** Testing how API rate limiters (The Allocator) interact with high-frequency trading algorithms (The Producer) during market volatility.
+- **Robust RLHF Benchmarking:** Evaluating if a new foundation model will hack its reward function, or if it can adapt to shifting constraints over a long context window.
 
 ## 📊 Evaluation & Reward Model
 

@@ -39,6 +39,22 @@ The moment the RL agents master the environment and achieve an 85% survival rate
 
 The agents, which were previously comfortable, suddenly begin to starve. Their previously optimal policies fail. To survive, they must discover entirely new, highly-cooperative policies — such as sacrificing personal trust scores to keep weaker agents alive.
 
+## The Simulation Protocols
+
+To prove the robustness of the system, HuecoEnv ships with distinct tasks (Protocols):
+- **Protocol Alpha (Cooperative Baseline):** 100% resources, Brain disabled. Proves the LLM can learn basic JSON formatting without dying.
+- **Protocol Beta (Scarcity Negotiation):** 60% resources, Brain disabled. Forces the LLM into a cutthroat economy from episode one.
+- **Protocol Omega (Adaptive Dashboard):** 100% resources, Brain enabled, relaxed physics. Designed for the interactive UI so observers can visually witness the Scarcity Drought trigger.
+- **A100 Training Mode:** 100% resources, Brain enabled, brutal physics. Passive resource regeneration is slashed to 1%. This is the crucible where the actual LLM was trained.
+
+## 🌍 Real-World Applications
+
+HuecoEnv simulates real-world multi-agent resource constraints. The architecture maps perfectly to:
+- **Cloud Compute Arbitration:** AI agents dynamically allocating GPU clusters and data bandwidth in multi-tenant environments (like AWS or Azure) during peak demand surges.
+- **Supply Chain Logistics:** Autonomous nodes negotiating scarce physical resources during unexpected global shortages (simulated by the Scarcity Drought).
+- **Automated Throttling Systems:** Testing how API rate limiters interact with high-frequency trading algorithms during market volatility.
+- **Robust RLHF Benchmarking:** Evaluating if a new foundation model will hack its reward function, or if it can adapt to shifting constraints over a long context window.
+
 ## The Results
 
 We trained **Qwen3-1.7B** using TRL's GRPO on a Hugging Face A100 GPU across 1,000 episodes. The LLM directly controls the Producer agent, while the Allocator and Critic remain heuristic-driven.
