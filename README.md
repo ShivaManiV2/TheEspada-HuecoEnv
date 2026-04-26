@@ -15,7 +15,7 @@ HuecoEnv is a self-improving multi-agent environment where three AI agents must 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ShivaManiV2/HuecoEnv/blob/main/training_run.ipynb)
 🤗 **[Play in Hugging Face Space](https://huggingface.co/spaces/ShivaManiV2/TheEspada-HuecoEnv)**
-📖 **[Read the Blog Post](hackathon/blog_post.md)** · 🎯 **[Pitch Deck](hackathon/pitch_deck.md)**
+📖 **[Read the Blog Post](Blog.MD)** · 🎯 **[Pitch Deck](hackathon/pitch_deck.md)**
 
 ![Dashboard Scarcity Drought](assets/dashboard_drought.png)
 
