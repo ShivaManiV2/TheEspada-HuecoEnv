@@ -1,3 +1,12 @@
+---
+title: HuecoEnv
+emoji: 🌍
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
 # 🧠 HuecoEnv
 
 **"We built an environment that gets harder as agents get smarter, automatically."**
@@ -5,7 +14,7 @@
 HuecoEnv is a self-improving multi-agent environment where three AI agents must negotiate and allocate scarce resources (Compute and Data) to survive. When agents master the current difficulty, an **Environment Brain** detects the plateau and injects scarcity shocks — making the world harder recursively.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ShivaManiV2/HuecoEnv/blob/main/training_run.ipynb)
-🤗 **[Play in Hugging Face Space](https://huggingface.co/spaces/YOUR_HF_USERNAME/YOUR_SPACE_NAME)**
+🤗 **[Play in Hugging Face Space](https://huggingface.co/spaces/ShivaManiV2/TheEspada-HuecoEnv)**
 📖 **[Read the Blog Post](hackathon/blog_post.md)** · 🎯 **[Pitch Deck](hackathon/pitch_deck.md)**
 
 ---

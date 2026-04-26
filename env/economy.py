@@ -94,7 +94,7 @@ class EconomyEngine:
         self.allocator = AllocatorEngine(rng=self.rng)
         self.critic = CriticEngine(rng=self.rng)
 
-    def process_step(self, agents: Dict[str, AgentState], trade_offers: Dict[str, TradeOffer], resource_pool: ResourcePool, scarcity_active: bool = False) -> Tuple[Dict[str, TradeResult], Dict[str, float], Dict[str, float]]:
+    def process_step(self, agents: Dict[str, AgentState], trade_offers: Dict[str, TradeOffer], resource_pool: ResourcePool, scarcity_active: bool = False, regen_rate: float = 0.20) -> Tuple[Dict[str, TradeResult], Dict[str, float], Dict[str, float]]:
         trust_scores = {aid: a.trust_score for aid, a in agents.items()}
         self._scarcity_active = scarcity_active
 
@@ -145,6 +145,6 @@ class EconomyEngine:
                 agent.trade_history.append(result)
 
         # 5. Regenerate resources
-        resource_pool.regenerate()
+        resource_pool.regenerate(rate=regen_rate)
 
         return trade_results, artifact_scores, critic_evaluations

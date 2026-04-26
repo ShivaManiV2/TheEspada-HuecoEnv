@@ -39,6 +39,7 @@ TASK_CONFIG = {
     "cooperative_baseline":  (100.0, 80.0, False),
     "scarcity_negotiation":  (60.0,  48.0, False),
     "adaptive_survival":     (100.0, 80.0, True),
+    "training_mode":         (100.0, 80.0, True),  # Brutal settings
 }
 
 # Starting resources given to each agent at episode start
@@ -180,10 +181,11 @@ class HuecoEnv:
             trade_offers[agent_id] = offer
 
         # ── 2. Passive resource drip ──────────────────────────────────────
-        # Tiny trickle: buys the LLM a few extra steps, but NOT enough
-        # to survive without trades. Forces learning while being fair.
-        compute_drip_per_agent = self.resource_pool.compute_capacity * 0.01 / len(ALL_AGENT_IDS)
-        data_drip_per_agent   = self.resource_pool.data_capacity    * 0.01 / len(ALL_AGENT_IDS)
+        # Dashboard mode gets a relaxed drip (0.06) so bots survive long enough
+        # to trigger the drought. Training mode gets brutal (0.01) so LLM learns.
+        drip_rate = 0.01 if self.task_name == "training_mode" else 0.06
+        compute_drip_per_agent = self.resource_pool.compute_capacity * drip_rate / len(ALL_AGENT_IDS)
+        data_drip_per_agent   = self.resource_pool.data_capacity    * drip_rate / len(ALL_AGENT_IDS)
 
         for agent_id, agent in self.agents.items():
             agent.compute_held += compute_drip_per_agent
@@ -191,11 +193,15 @@ class HuecoEnv:
 
 
         # ── 3. Run economy step ────────────────────────────────────────────
+        # Dashboard gets 20% regen, Training gets brutal 10% regen
+        regen_rate = 0.10 if self.task_name == "training_mode" else 0.20
+
         trade_results, artifact_scores, critic_evals = self.economy.process_step(
             agents=self.agents,
             trade_offers=trade_offers,
             resource_pool=self.resource_pool,
             scarcity_active=scarcity_on,
+            regen_rate=regen_rate,
         )
 
         # ── 4. Record strategy for brain ──────────────────────────────────
