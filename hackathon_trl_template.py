@@ -1,9 +1,10 @@
 """
-HuecoEnv — Hackathon TRL Training Template
+HuecoEnv — TRL Integration Reference
 =============================================
-Use this file during the GPU phase of the hackathon. 
-It shows you exactly where to paste the Unsloth/TRL code provided by the organizers
-without breaking your environment or your CSV data logging.
+Reference scaffold showing how to connect HuecoEnv to TRL's GRPO trainer.
+The actual executed training code is in training_run.ipynb (run on HF A100 Large).
+This file is kept as a simplified reference for developers who want to
+integrate their own models with HuecoEnv.
 """
 
 import os
