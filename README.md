@@ -19,6 +19,9 @@ HuecoEnv is a self-improving multi-agent environment where three AI agents must 
 
 ![Dashboard Scarcity Drought](assets/dashboard_drought.png)
 
+> [!TIP]
+> **Interactive Dashboard Demo:** When testing the [Hugging Face Space](https://huggingface.co/spaces/ShivaManiV2/TheEspada-HuecoEnv), make sure you select `[ PROTOCOL: OMEGA ] Adaptive` and click **Initialize Simulation**. Because the Sentinel tracks a rolling average, you must **wait for the simulation to reach ~Episode 20**. Once it detects the agents are surviving comfortably (>85%), you will visually witness the **Scarcity Drought** trigger and crash their survival rate!
+
 ---
 
 ## 📊 Training Results
