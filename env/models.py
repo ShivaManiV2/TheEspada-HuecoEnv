@@ -50,14 +50,14 @@ class ResourcePool(BaseModel):
         return actual_compute, actual_data
 
     def regenerate(self):
-        """Regenerate resources each step."""
+        """Regenerate resources each step (moderate — rewards good trading)."""
         self.compute_available = min(
             self.compute_capacity,
-            self.compute_available + self.compute_capacity * 0.2
+            self.compute_available + self.compute_capacity * 0.10
         )
         self.data_available = min(
             self.data_capacity,
-            self.data_available + self.data_capacity * 0.2
+            self.data_available + self.data_capacity * 0.10
         )
 
     def apply_scarcity(self, capacity_fraction: float, disable_resource: Optional[str] = None):

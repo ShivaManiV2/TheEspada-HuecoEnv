@@ -180,15 +180,15 @@ class HuecoEnv:
             trade_offers[agent_id] = offer
 
         # ── 2. Passive resource drip ──────────────────────────────────────
-        # Each agent gets a small trickle each step.
-        # During drought, the drip is proportional to the reduced capacity
-        # so survival is POSSIBLE but not guaranteed.
-        compute_drip_per_agent = self.resource_pool.compute_capacity * 0.02 / len(ALL_AGENT_IDS)
-        data_drip_per_agent   = self.resource_pool.data_capacity    * 0.02 / len(ALL_AGENT_IDS)
+        # Tiny trickle: buys the LLM a few extra steps, but NOT enough
+        # to survive without trades. Forces learning while being fair.
+        compute_drip_per_agent = self.resource_pool.compute_capacity * 0.01 / len(ALL_AGENT_IDS)
+        data_drip_per_agent   = self.resource_pool.data_capacity    * 0.01 / len(ALL_AGENT_IDS)
 
         for agent_id, agent in self.agents.items():
             agent.compute_held += compute_drip_per_agent
             agent.data_held    += data_drip_per_agent
+
 
         # ── 3. Run economy step ────────────────────────────────────────────
         trade_results, artifact_scores, critic_evals = self.economy.process_step(

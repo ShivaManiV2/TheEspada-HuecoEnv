@@ -5,7 +5,7 @@ import os
 
 # Load the real data
 # Use the _1.csv since that is the one you just downloaded from the A100!
-data_path = "data/training_adaptive_survival_1.csv" if os.path.exists("data/training_adaptive_survival_1.csv") else "data/training_adaptive_survival.csv"
+data_path = "data/training_adaptive_survival.csv"
 df = pd.read_csv(data_path)
 
 # Create the Cyberpunk Plot

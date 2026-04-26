@@ -14,30 +14,36 @@
 ## Slide 2: The Solution - HuecoEnv
 **An adversarial, self-improving multi-agent economy.**
 - We built a 3-agent resource economy (Producer, Allocator, Critic) using the OpenEnv framework.
-- Agents must negotiate scarce resources (Compute & Data) using a strict JSON trade protocol.
-- **The Metric:** Survival Rate. (Can they cooperate enough to keep everyone alive for 50 episodes?)
+- The LLM controls the Producer — generating JSON trade offers parsed and executed by the environment.
+- Agents must negotiate scarce resources (Compute & Data) using a strict JSON protocol.
+- **The Metric:** Survival Rate. (Can all 3 agents cooperate to keep everyone alive for 50 steps?)
 
 ---
 
 ## Slide 3: The Architecture - The Environment Brain
 **The environment is the protagonist.**
 - **The Sentinel:** Monitors the 20-episode rolling survival rate. If agents master the environment (>85% survival), it fires a trigger.
-- **The Injector:** Introduces "Scarcity Droughts", slashing the resource pool to 5% capacity to simulate real-world supply chain shocks.
+- **The Injector:** Introduces "Scarcity Droughts", slashing the resource pool to 10% capacity.
 - **World Memory:** The environment remembers agent strategies. If an agent solves a drought the same way twice, the next drought gets recursively harder.
 
 ---
 
-## Slide 4: The Graph - "40 to 8"
-*(Visual: Line graph showing Survival Rate over Episodes)*
-- **Act 1 (Cooperation):** Agents easily hit 95% survival.
-- **Act 2 (Collapse):** The Sentinel detects mastery. The Injector fires an L3 Scarcity Drought. Trust decays. Survival plummets to 50%.
-- **Act 3 (Recovery):** 
-    - *Untrained Heuristics:* Take 40 episodes to recover stability.
-    - *Trained RL Agents:* Recognize the drought and recover in **8 episodes**.
+## Slide 4: Real Results — Qwen3-1.7B GRPO Training
+
+*(Visual: Survival plot from `assets/survival_plot.png`)*
+
+**Trained on Hugging Face A100 GPU | 1,000 episodes | TRL GRPO**
+
+- **Act 1 — Struggling (Ep 1–100):** Survival at ~35–45%. The LLM is learning the JSON trade protocol.
+- **Act 2 — Mastery (Ep 400–480):** Survival climbs to **75–85%**. The Sentinel detects mastery and fires the Injector.
+- **Act 3 — Collapse & Recovery (Ep 480–800):** Survival crashes to ~50%, then the model adapts and recovers to **75–80%**.
+- **The Sawtooth:** This collapse–recovery cycle repeats, proving the Environment Brain works as designed.
+
+**Key stat:** Peak survival rate of **85%**, with the environment autonomously triggering 2+ scarcity droughts.
 
 ---
 
 ## Slide 5: The Closing Line
-"When you build an environment that fights back, you don't just test what an agent knows—you test how quickly it can adapt when everything goes wrong."
+"When you build an environment that fights back, you don't just test what an agent knows — you test how quickly it can adapt when everything goes wrong."
 
 **HuecoEnv — Ready for OpenEnv.**

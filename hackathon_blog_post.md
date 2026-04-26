@@ -28,22 +28,29 @@ HuecoEnv operates on two core architectural pillars that solve these problems:
 ### 1. RLVR (Reinforcement Learning with Verifiable Rewards)
 HuecoEnv forces all agents to communicate exclusively through strict JSON contracts (using Pydantic models). There is no "LLM Critic" determining the success of a trade. 
 
-When the Producer asks for `{"compute": 20, "data": 15}`, the environment's internal Python math engine checks the exact ledger. If the Allocator approves the trade but doesn't have the resources, the transaction mathematically fails. The survival of an agent is tied strictly to a hard-coded mathematical truth: `resources > 0`. This provides a pristine, deterministic reward signal for PPO/GRPO optimization.
+When the Producer asks for `{"compute": 20, "data": 15}`, the environment's internal Python math engine checks the exact ledger. If the Allocator approves the trade but doesn't have the resources, the transaction mathematically fails. The survival of an agent is tied strictly to a hard-coded mathematical truth: `resources > 0`. This provides a pristine, deterministic reward signal for GRPO optimization.
+
+If the LLM produces invalid JSON, it receives a "poison offer" — zero resources, guaranteed rejection. There is no heuristic safety net. The model must learn the protocol or starve.
 
 ### 2. The Environment Brain (Recursive Scarcity)
 We built an intelligent `EnvironmentBrain` that monitors the agents' performance. It features a `Sentinel` that calculates a 20-episode rolling average of the multi-agent survival rate.
 
-The moment the RL agents master the environment and achieve an 85% survival rate, the Sentinel triggers the `Injector`. The Injector artificially crashes the global resource capacity by 70% (a "Scarcity Drought").
+The moment the RL agents master the environment and achieve an 85% survival rate, the Sentinel triggers the `Injector`. The Injector artificially crashes the global resource capacity by up to 90% (a "Scarcity Drought").
 
-The agents, which were previously comfortable, suddenly begin to starve. Their previously optimal policies fail. To survive, they must discover entirely new, highly-cooperative policies — such as sacrificing personal trust scores to keep weaker agents alive. 
+The agents, which were previously comfortable, suddenly begin to starve. Their previously optimal policies fail. To survive, they must discover entirely new, highly-cooperative policies — such as sacrificing personal trust scores to keep weaker agents alive.
 
 ## The Results
 
-By establishing a deterministic JSON-based reward system and a recursively escalating difficulty curve, HuecoEnv ensures that RL training never flatlines. The agents are forced into a state of continuous adaptation.
+We trained **Qwen3-1.7B** using TRL's GRPO on a Hugging Face A100 GPU across 1,000 episodes. The LLM directly controls the Producer agent, while the Allocator and Critic remain heuristic-driven.
 
-In our baseline testing using untrained Llama-3.1-8B models via the Hugging Face Inference API, the models achieved a 99% survival rate during the easy phase. However, the moment the Environment Brain triggered the Scarcity Drought, survival crashed. 
+The training curve reveals a distinctive **sawtooth pattern**:
 
-By applying **TRL (Transformer Reinforcement Learning)** and **GRPO**, we are able to train the models to recognize scarcity patterns and adapt their JSON requests dynamically, recovering the survival rate entirely through verifiable, math-based cooperation.
+1. **Episodes 1–100 (Struggling):** Survival hovers at 35–45% as the model learns valid JSON formatting and reasonable trade values.
+2. **Episodes 400–480 (Mastery):** The model masters the trade protocol. Survival climbs to **75–85%**. The Sentinel detects this mastery and triggers the first Scarcity Drought.
+3. **Episodes 480–800 (Collapse & Recovery):** Survival crashes to ~50% as resources are slashed. Over the next 200 episodes, the model discovers more conservative strategies and climbs back to **75–80%**.
+4. **Episodes 980–1000 (Second Drought):** The Environment Brain escalates again. Survival drops to ~55%, proving the recursive mechanism works.
+
+This sawtooth pattern — mastery followed by forced collapse followed by adaptation — is exactly the continuous learning signal that static benchmarks cannot provide.
 
 ---
-*Built for the Meta OpenEnv Hackathon*
+*Built for the Meta OpenEnv Hackathon. [GitHub](https://github.com/ShivaManiV2/HuecoEnv)*
